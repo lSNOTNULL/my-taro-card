@@ -16,4 +16,9 @@ public class SupabaseServiceImpl implements SupabaseService {
     public void save(String id, String text, String image) throws IOException, InterruptedException {
         supabaseRepository.save(id, text, image);
     }
+
+    @Override
+    public String findById(String uuid) throws IOException, InterruptedException {
+        return supabaseRepository.findById(uuid);
+    }
 }

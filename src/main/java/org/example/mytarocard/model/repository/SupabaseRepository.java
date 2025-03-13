@@ -51,4 +51,25 @@ public class SupabaseRepository {
             logger.info(response.body());
         }
     }
+    public String findById(String id) throws IOException, InterruptedException {
+        String supabaseKey = dotenv.get("SUPABASE_KEY");
+        String[] headers = new String[]{
+                "apikey", supabaseKey,
+                "Authorization", "Bearer %s".formatted(supabaseKey),
+                "Content-Type", "application/json",
+//                "Prefer", "return=minimal"
+        };
+        String url = dotenv.get("SUPABASE_URL") + "/rest/v1/TARO?select=*&id=eq.%s".formatted(id);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .method("GET", HttpRequest.BodyPublishers.ofString(""))
+                .headers(headers)
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        logger.info("%d".formatted(response.statusCode()));
+        if (response.statusCode() >= 400) {
+            logger.info(response.body());
+        }
+        return response.body();
+    }
 }
