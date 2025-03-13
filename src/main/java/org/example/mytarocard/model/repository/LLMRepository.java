@@ -12,7 +12,7 @@ public class LLMRepository {
         return instance;
     }
 
-    final Logger logger = Logger.getLogger(LLMRepository.class.getName());
+    private final Logger logger = Logger.getLogger(LLMRepository.class.getName());
 
     // 나중에 수정이 필요하면 overloading 여러개의 파람.
     public  String callModel(String model, String token, String platform, String prompt) {
