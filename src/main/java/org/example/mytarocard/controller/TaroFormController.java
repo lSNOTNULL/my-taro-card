@@ -37,6 +37,7 @@ public class TaroFormController extends Controller {
         req.setAttribute("ogPageUrl", req.getContextPath());
         view(req, resp, "form");
     }
+    public String refinedResponse = "";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,6 +45,7 @@ public class TaroFormController extends Controller {
         String description = req.getParameter("description");
         LLMServiceParam param = new LLMServiceParam(LLMModel.GEMINI_2_0_FLASH, description);
         LLMServiceResponse response;
+
         try {
             response = llmService.callModel(param);
         } catch (InterruptedException e) {
